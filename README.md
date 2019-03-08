@@ -148,6 +148,18 @@ cd /u01/app/oracle/middleware/oracle_common/common/bin
 
 ![](images/027.png)
 ![](images/028.png)
+
+- Select the following items - need to scroll down for one of them (selecting one will cause others to be selected with green checks):
+
+```
+    Oracle Data Integrator - Agent
+    Oracle Data Integrator - Agent Libraries
+    Oracle Data Integrator SDK Shared Library Template
+    Oracle Data Integrator - Console
+    Oracle Data Integrator – Standalone Collocated Agent
+    Oracle Enterprise Manager Plugin for ODI
+```
+
 ![](images/029.png)
 ![](images/030.png)
 ![](images/031.png)
