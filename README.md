@@ -19,6 +19,7 @@ Allow service PSM to use subnets in compartment <compartment_name>
 Allow service PSM to use vnics in compartment <compartment_name>
 Allow service PSM to manage security-lists in compartment <compartment_name>
 Allow service PSM to manage all-resources in compartment <compartment_name>
+
 Click on button “Create” at the bottom of the screen
 ```
 
