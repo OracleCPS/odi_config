@@ -7,13 +7,15 @@ This are some notes to help you through the installation and configuration of OD
 
 ### **Create a DBCS Service (Classic or OCI)**
 
+Not documented, but straightforward.  Be sure to select backup.
+
 If the Database is on OCI or ADW/ATP you need to create the following policies.
 
 OCI: 
 
 ```
-Allow service PSM to inspect database-family in compartment compartment_name
-Allow service PSM to inspect database-family in compartment compartment_name
+Allow service PSM to inspect database-family in compartment <compartment_name>
+Allow service PSM to inspect database-family in compartment <compartment_name>
 Allow service PSM to inspect vcns in compartment <compartment_name>
 Allow service PSM to use subnets in compartment <compartment_name>
 Allow service PSM to use vnics in compartment <compartment_name>
@@ -25,19 +27,30 @@ Click on button “Create” at the bottom of the screen
 
 ADW: 
 
-`Allow service PSM to inspect autonomous-database in compartment compartment_name`
+`Allow service PSM to inspect autonomous-database in compartment <compartment_name>`
 
-![](images/workshopmenu1.png)
+### **Create JCS**
 
-![](images/workshopmenu2.png) 
+If using DB on OCI, first apply [this patch](https://support.oracle.com/epmos/faces/DocContentDisplay?_afrLoop=500232808913353&id=2434657.1&_afrWindowMode=0&_adf.ctrl-state=1p33fhsy9_9) to JCS.
 
-## Acquire an Oracle Cloud Trial or Workshop Account (after this workshop)
+**Be sure to select the availability domain if the DB is on OCI**
 
-Please click on the [Free Oracle Cloud Promotion](https://myservices.us.oraclecloud.com/mycloud/signup?language=en&sourceType=:ex:tb:::RC_NAMK180723P00029:RedshiftADWC_HOL&SC=:ex:tb:::RC_NAMK180723P00029:RedshiftADWC_HOL&pcode=NAMK180723P00029) link to complete all the required steps to get your free Oracle Cloud Trial Account. When you complete the registration process you'll receive a $300 credit and up to 3500 hours of free Oracle Cloud usage. You'll have 1000s of hours left over after the labs to continue to explore the Oracle Cloud.  Soon after requesting your trial you will receive the following email. You will not be able to start Lab 100 until you have received it.
+![](images/001.png)
 
-![](images/trial.png)
+You should see something similar to this:
 
-**Suggested followup Autonomous Data Warehouse Workshop, with Oracle Machine Learning:**
+```
+Jan 17, 2019 10:32:59 PM UTC	Activity Submitted
+Jan 17, 2019 10:33:03 PM UTC	Activity Started
+Jan 17, 2019 10:33:05 PM UTC	Started operation to create service [JCSODICS] in identity domain [idcs-a8db2211d48045aa9bbc9f93fe2475bf].
+Jan 17, 2019 10:33:06 PM UTC	Creating resources [jcsodics-wls-1] for service [JCSODICS].
+Jan 17, 2019 10:39:14 PM UTC	Completed creating service [JCSODICS] resources in domain [idcs-a8db2211d48045aa9bbc9f93fe2475bf].
+Jan 17, 2019 10:41:27 PM UTC	Started operation to check provisioning status on the VMs for [WLS]
+Jan 17, 2019 10:49:57 PM UTC	Provisioning Succeeded on host(s): jcsodics-wls-1
+Jan 17, 2019 10:49:57 PM UTC	Provisioning of component [WLS] succeeded.
+Jan 17, 2019 10:50:40 PM UTC	Activity Ended
+```
+
 
 https://go.oracle.com/adwc
 
