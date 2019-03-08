@@ -1,16 +1,30 @@
-# ML 101: Oracle Data Miner/Oracle Autonomous Data Warehouse Cloud Lab Guide
+# ODI on JCS Install and Config Notes
 
-Welcome to Analytics and Data Summit!  This two hour workshop provides an introduction to Oracle Machine Learning.  This is the lab guide for the hands on part of the workshop.  You have been provided with environments to complete these labs.  However we encourage you to get a **FREE** trial account that comes with ALL the Oracle Cloud Services, and run through a more comprehensive hands on workshop (see below for instructions on how to get a trial account **AFTER** this workshop.
+Derrick Cameron
+Mar 8, 2019
 
-## Presentation
+This are some notes to help you through the installation and configuration of ODI on JCS.  This requires a database.  It was tested on 12.1, but should work on 12.2 (Classic and OCI).  There are some differences when using DB Classic versus OCI, but this is just in the beginning.  
 
-**Click to Download**
+### **Create a DBCS Service (Classic or OCI)**
 
-[OOW 2018 Machine Learning HOL Presentation](https://dgcameron.github.io/adwcml_oow/OOW18-ML101-HOL5759.pptx)
+If the Database is on OCI or ADW/ATP you need to create the following policies.
 
-## Navigate to Machine Learning Lab
+OCI: 
 
-- Once the setup is complete you can move on to the Machine Learning lab by clicking on the Menu Icon in the upper left corner of the browser window and then selecting Oracle Machine Learning. You're now ready to continue with the Machine Learning Lab.
+```
+Allow service PSM to inspect database-family in compartment compartment_name
+Allow service PSM to inspect database-family in compartment compartment_name
+Allow service PSM to inspect vcns in compartment <compartment_name>
+Allow service PSM to use subnets in compartment <compartment_name>
+Allow service PSM to use vnics in compartment <compartment_name>
+Allow service PSM to manage security-lists in compartment <compartment_name>
+Allow service PSM to manage all-resources in compartment <compartment_name>
+Click on button “Create” at the bottom of the screen
+```
+
+ADW: 
+
+`Allow service PSM to inspect autonomous-database in compartment compartment_name`
 
 ![](images/workshopmenu1.png)
 
