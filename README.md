@@ -76,7 +76,7 @@ sudo service iptables restart
 ```
 sudo su - oracle
 
-vncpasswd Wel_Come#123
+vncpasswd <enter password>
 vncserver -nolisten local -geometry 1680x1050
 ```
 ### **Install ODI**
