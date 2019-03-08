@@ -51,7 +51,195 @@ Jan 17, 2019 10:49:57 PM UTC	Provisioning of component [WLS] succeeded.
 Jan 17, 2019 10:50:40 PM UTC	Activity Ended
 ```
 
+### **Setup JCS Desktop**
 
-https://go.oracle.com/adwc
+These instructions follow [this documentation](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/javaservice/JCS/FMW_UpperStack_on_JCS/odi_on_jcs_obe/provisioning_oracle_data_integrator_cloud_service.html#section1).
 
+- ssh into the image with your private key and enter the following:
+
+`sudo killall gnome-screensaver`
+
+- Add access rule - open 5901 (WLS_ADMIN)
+
+![](images/002.png)
+
+- Open firewall (actually not sure this is required).
+
+```
+sudo sed -i 's/IPTABLES_SAVE_ON_RESTART="no"/IPTABLES_SAVE_ON_RESTART="yes"/g' /etc/sysconfig/iptables-config
+sudo iptables -I INPUT -p tcp -m tcp --dport 5901 -j ACCEPT
+sudo service iptables restart
+```
+
+- Set the vnc password and start the server:
+
+```
+sudo su - oracle
+
+vncpasswd Wel_Come#123
+vncserver -nolisten local -geometry 1680x1050
+```
+### **Install ODI**
+
+- Enter the following in a terminal window.
+
+```
+cd /u01/zips/upperstack
+unzip ODI.zip
+java -jar fmw_12.2.1.2.6_odi_generic.jar
+```
+
+![](images/003.png)
+![](images/004.png)
+![](images/005.png)
+![](images/006.png)
+![](images/007.png)
+![](images/008.png)
+![](images/009.png)
+![](images/010.png)
+![](images/011.png)
+![](images/012.png)
+
+- Enter the following:
+
+```
+sudo su - oracle
+more /u01/data/domains/JCSODICS_domain/config/jdbc/mds-owsm-jdbc.xml
+```
+
+- note the SP number in the text file - you will need this later (eg: SP1547852814)
+
+### **Run RCU**
+
+- Enter the following:
+
+```
+cd /u01/app/oracle/middleware/oracle_common/bin
+./rcu
+```
+![](images/013.png)
+![](images/014.png)
+![](images/015.png)
+![](images/016.png)
+![](images/017.png)
+![](images/018.png)
+![](images/019.png)
+![](images/020.png)
+![](images/021.png)
+![](images/022.png)
+![](images/023.png)
+
+### **Log into WLS and stop the admin and managed servers**
+
+- Log into the console and do the following:
+
+![](images/024.png)
+![](images/025.png)
+![](images/026.png)
+
+### **Create and Configure ODI Domain**
+
+- Enter the following.
+
+```
+cd /u01/app/oracle/middleware/oracle_common/common/bin
+./config.sh
+```
+
+![](images/027.png)
+![](images/028.png)
+![](images/029.png)
+![](images/030.png)
+![](images/031.png)
+![](images/032.png)
+![](images/033.png)
+![](images/034.png)
+![](images/035.png)
+![](images/036.png)
+![](images/037.png)
+![](images/038.png)
+![](images/039.png)
+![](images/040.png)
+![](images/041.png)
+![](images/042.png)
+![](images/043.png)
+![](images/044.png)
+![](images/045.png)
+![](images/046.png)
+![](images/047.png)
+![](images/048.png)
+
+- Be careful in the next few steps - pay attention to where you are on the Cluster tree on the right.
+
+![](images/049.png)
+![](images/050.png)
+![](images/051.png)
+![](images/052.png)
+![](images/053.png)
+![](images/054.png)
+
+### **Start Studio and create agent**
+
+- Enter the following:
+
+```
+cd /u01/app/oracle/middleware/odi/studio
+./odi.sh
+```
+
+![](images/055.png)
+![](images/056.png)
+![](images/057.png)
+![](images/058.png)
+![](images/059.png)
+![](images/060.png)
+![](images/061.png)
+![](images/062.png)
+![](images/063.png)
+![](images/064.png)
+
+### **Start WLS**
+
+- Enter the following:
+
+```
+cd /u01/app/oracle/middleware/oracle_common/common/bin
+./wlst.sh
+```
+
+- Connect (mnConnect):
+
+```
+wls:/offline> nmConnect('weblogic','Wel_Come#123','129.156.112.61','5556','JCSODICS_domain','/u01/data/domains/JCSODICS_domain')
+
+Connecting to Node Manager ...
+<Jan 18, 2019 6:03:51 PM UTC> <Info> <Security> <BEA-090905> <Disabling the CryptoJ JCE Provider self-integrity check for better startup performance. To enable this check, specify -Dweblogic.security.allowCryptoJDefaultJCEVerification=true.> 
+<Jan 18, 2019 6:03:51 PM UTC> <Info> <Security> <BEA-090906> <Changing the default Random Number Generator in RSA CryptoJ from ECDRBG128 to HMACDRBG. To disable this change, specify -Dweblogic.security.allowCryptoJDefaultPRNG=true.> 
+<Jan 18, 2019 6:03:51 PM UTC> <Info> <Security> <BEA-090909> <Using the configured custom SSL Hostname Verifier implementation: weblogic.security.utils.SSLWLSHostnameVerifier$NullHostnameVerifier.> 
+Successfully Connected to Node Manager.
+```
+
+- Start (nmStart):
+
+```
+wls:/nm/JCSODICS_domain> nmStart('JCSODICS_adminserver')
+
+Starting server JCSODICS_adminserver ...
+Successfully started server JCSODICS_adminserver ...
+wls:/nm/JCSODICS_domain> 
+```
+
+- Log into WL Server
+
+![](images/065.png)
+![](images/066.png)
+![](images/067.png)
+![](images/068.png)
+![](images/069.png)
+![](images/070.png)
+![](images/071.png)
+![](images/072.png)
+![](images/073.png)
+![](images/074.png)
+![](images/075.png)
 
