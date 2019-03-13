@@ -255,3 +255,10 @@ wls:/nm/JCSODICS_domain>
 ![](images/074.png)
 ![](images/075.png)
 
+### **Test Agent**
+
+- Return to ODI Studio, select the Topology tab, and then expand agents.  Select the agent and then select the test tab.  Note that an agent is not required to run mappings (eg. for POC), but is recommended for performance reasons.
+
+![](images/076.png)
+
+![](images/077.png)
